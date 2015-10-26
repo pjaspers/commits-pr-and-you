@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Commits, PRs, Code Reviews and You</title>
+
+		<meta name="description" content="Commits, PRs, Code Reviews and You">
+		<meta name="author" content="Piet Jaspers">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+        <section class="slide">
+          <h1>Commits, PRs, Code Reviews and You.</h1>
+        </section>
+
+        <section class="slide">
+          <h2>Some terminology</h2>
+          <p><span class="fragment">Dumb</span><span class="fragment"> < Past You</span><span class="fragment"> < Present You</span><span class="fragment"> < Future You</span><span class="fragment"> < Not Dumb</span>
+        </section>
+
+        <section class="stack present">
+          <section class="present">
+            <h1>Commits</h1>
+            <p class="fragment">Commits are written by Present You, they will be usable to Future You, it's important to include as much context as possible to avoid Future You thinking of Past You as an idiot.</p>
+          </section>
+
+          <section class="future">
+            <h2>Some examples</h2>
+          </section>
+
+          <section class="future">
+            <pre><code>Fixes thing</code></pre>
+            <img class="fragment" alt="" src="https://pile.pjaspers.com/raining_bob-9X4gwd8cTZ.gif"/>
+            <h3 class="fragment">This makes Bob sad.</h3>
+          </section>
+
+          <section class="future">
+            <pre>
+              <code>
+Fix: User could not signup because button was gone
+
+If a user tried to sign up on a mobile devices, the button would not
+be displayed. This was caused by the `float: left` on the button
+itself, by removing this it is working again on all platforms.
+
+[fixes #123456]
+              </code>
+            </pre>
+            <img class="fragment" alt="" src="http://i.imgur.com/x1C0l.gif"/>
+            <h3 class="fragment">This makes Bob happy.</h3>
+          </section>
+
+          <section class="future">
+            <pre>
+              <code>Committed all the things</code>
+            </pre>
+            <img class="fragment" alt="" src="https://pile.pjaspers.com/bob_forest_gump-xcpRuZI6Wb.gif"/>
+            <h3 class="fragment">Stop making Bob sad.</h3>
+          </section>
+
+          <section class="future">
+            <pre>
+              <code>
+Committed all the things...
+
+This is a big commit, sorry. The things that I've tried to do in this commit:
+
+- Fix bug with the thingamajig
+- Enhance the AI
+- Turned off various logging things
+              </code>
+            </pre>
+            <img class="fragment" alt="" src="http://thechive.files.wordpress.com/2010/10/new_gif_collection_06.gif"/>
+            <h3 class="fragment">Let's make Bob happy!</h3>
+          </section>
+          <section class="future">
+            <h2>Commits are a diary</h2>
+            <h3 class="fragment">(Explain what and why)</h3>
+          </section>
+        </section>
+
+        <section class="stack">
+          <section class="present">
+            <h1>Comments</h1>
+            <p>Comments also make 'Past You' look <strong>way smarter</strong> than he actually was.</p>
+          </section>
+
+          <section class="future">
+            <pre>
+              <code>
+def word_list
+  return @word_list if @word_list
+  indexes = (1..6).to_a
+     .repeated_permutation(5).map(&:join)
+     .first(valid_words.length)
+  @word_list = Hash[indexes.zip(valid_words)]
+  @word_list
+end
+              </code>
+            </pre>
+          </section>
+          <section class="future">
+            <h3>Versus</h3>
+          </section>
+          <section class="future">
+            <pre>
+              <code>
+def word_list
+  return @word_list if @word_list
+  # The coolest line in this whole source.
+  #
+  # Get all permuations with `1,2,3,4,5,6` (e.g. from '11111' 66666')
+  # only take as many as we need.
+  indexes = (1..6).to_a.repeated_permutation(5)
+    .map(&:join).valid_words.length)
+   # Zip the permutations with the words
+  # So this creates a hash like:
+  #
+  #      {'11111': 'first',
+  #       ...
+  #       '66665': 'another',
+  #       '66666': 'last'}
+   @word_list = Hash[indexes.zip(valid_words)]
+  @word_list
+end
+              </code>
+            </pre>
+          </section>
+          <section class="future">
+            <h2 class="fragment">Bad code with comments is less bad than bad code.</h2>
+            <h2 class="fragment">Smart code without comments is bad code.</h2>
+            <h2 class="fragment">Bad code with comments != smart code</h2>
+          </section>
+        </section>
+
+        <section class="stack">
+          <section class="present">
+            <h1>Pull Requests</h1>
+          </section>
+          <section class="future">
+            <h2 class="fragment">The perfect Pull Request</h2>
+            <ul>
+              <li class="fragment">Tells what should happen (Context)</li>
+              <li class="fragment">Makes it easy to review</li>
+              <li class="fragment">High level overview</li>
+              <li class="fragment">Has test to make sure it's solved</li>
+              <li class="fragment">Tells why you did it this way</li>
+            </ul>
+          </section>
+        </section>
+
+        <section class="stack">
+          <section class="present">
+            <h1>Code reviews</h1>
+          </section>
+          <section class="future">
+            <h2>Some guidelines</h2>
+            <ol>
+              <li class="fragment">Don't be a dick</li>
+              <li class="fragment">Don't be afraid to ask a question</li>
+              <li class="fragment">Don't tell, ask. (See 1)</li>
+              <li class="fragment">Even a +1 is useful</li>
+            </ol>
+          </section>
+
+          <section class="future">
+            <h2>You are not your code</h2>
+          </section>
+        </section>
+
+        <section class="slide">
+          <h1>CI</h1>
+          <h3 class="fragment">It's a PITA</h3>
+          <h3 class="fragment">Sometimes you need pita.</h3>
+          <blockquote class="fragment">Beste remedie tegen ‘goesting in pita’ is pita.
+
+            Net gebeld. 🐣
+            <p><cite>@atog</cite></p>
+          </blockquote>
+        </section>
+
+        <section class="slide">
+          <h1>You</h1>
+          <ul>
+            <li class="fragment">If you want something reviewed by someone, ping them on Slack.</li>
+            <li class="fragment">If you want something reviewed ping on #dev</li>
+            <li class="fragment">If you have some time, look/ask for something to review.</li>
+            <li class="fragment">Enter in Freckle on the project with tag #qa</li>
+          </ul>
+        </section>
+
+        <section class="slide">
+          <h1>Questions?</h1>
+        </section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: "moon", // available themes are in /css/theme
+				transition: "linear", // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+	</body>
+</html>
